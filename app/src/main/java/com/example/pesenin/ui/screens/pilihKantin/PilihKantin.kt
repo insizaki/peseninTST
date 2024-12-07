@@ -34,22 +34,24 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
+import com.example.pesenin.HomeRoutes
 import com.example.pesenin.R
 import com.example.pesenin.data.model.Store
-import com.example.pesenin.data.model.User
-import com.example.pesenin.ui.screens.loginScreen.LoginViewModel
-import com.example.pesenin.ui.screens.profile.ProfileViewModel
 import com.example.pesenin.ui.theme.TopBar
 
 @Composable
-fun LihatDaftarMenu(modifier: Modifier = Modifier, pilihKantinViewModel: PilihKantinViewModel? = null,) {
+fun LihatDaftarMenu(
+    modifier: Modifier = Modifier,
+    pilihKantinViewModel: PilihKantinViewModel? = null,
+    navController: NavHostController
+) {
 
     var stores: List<Store> by remember { mutableStateOf(emptyList()) }
-    pilihKantinViewModel!!.GetAllStore {storesData ->
+    pilihKantinViewModel!!.GetAllStore { storesData ->
         stores = storesData
         println("######################### $stores")
     }
@@ -65,7 +67,7 @@ fun LihatDaftarMenu(modifier: Modifier = Modifier, pilihKantinViewModel: PilihKa
                 .align(alignment = Alignment.TopStart)
                 .padding(horizontal = 8.dp, vertical = 16.dp)
                 .background(color = Color.White)
-        ){
+        ) {
             TopBar(true)
         }
         Box(
@@ -83,10 +85,10 @@ fun LihatDaftarMenu(modifier: Modifier = Modifier, pilihKantinViewModel: PilihKa
                     fontFamily = FontFamily(Font(R.font.poppins_regular)),
                     fontWeight = FontWeight(600),
                     color = Color(0xFF000000),
-                    )
+                )
             )
         }
-        Row (
+        Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -94,7 +96,7 @@ fun LihatDaftarMenu(modifier: Modifier = Modifier, pilihKantinViewModel: PilihKa
                     x = 0.dp,
                     y = 86.dp
                 )
-        ){
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.statustoko_wallpaper),
                 contentDescription = "Kantin GKM FILKOM",
@@ -116,7 +118,89 @@ fun LihatDaftarMenu(modifier: Modifier = Modifier, pilihKantinViewModel: PilihKa
                 .background(color = Color(0xfff4f5f9))
                 .verticalScroll(rememberScrollState())
         ) {
-            for(store in stores) {
+            Row( //Fragment Menu
+                horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.Start),
+                modifier = Modifier
+                    .offset(
+                        x = 10.dp,
+                        y = 20.dp
+                    )
+                    .requiredWidth(width = 360.dp)
+                    .requiredHeight(height = 115.dp)
+                    .clip(shape = RoundedCornerShape(12.dp))
+                    .background(color = Color.White)
+                    .padding(8.dp)
+            ) {
+                var urlPhoto: String by remember { mutableStateOf("") }
+
+                Image(
+                    painter = rememberImagePainter(data = urlPhoto), contentDescription = "",
+                    modifier = Modifier
+                        .requiredWidth(width = 148.dp)
+                        .requiredHeight(height = 100.dp)
+                        .clip(shape = RoundedCornerShape(6.dp))
+                        .background(color = Color(0xfff4f5f9))
+                )
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.Start,
+                    modifier = Modifier
+                        .padding(vertical = 6.dp)
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "CoffeeShop",
+                        style = TextStyle(
+                            fontSize = 12.sp,
+                            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                            fontWeight = FontWeight(500),
+                            color = Color(0xFF000000),
+                        )
+                    )
+                    Text(
+                        text = "Menyajikan kopi terbaik dari Malang Raya",
+                        style = TextStyle(
+                            fontSize = 7.sp,
+                            fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                            fontWeight = FontWeight(400),
+                            color = Color(0xFF313131),
+                        )
+                    )
+                    Spacer(modifier = Modifier.weight(1.0f))
+                    Box(
+                        modifier = Modifier
+                            .requiredWidth(width = 120.dp)
+                            .requiredHeight(height = 25.dp)
+                            .clip(shape = RoundedCornerShape(5.dp))
+                            .background(color = Color(0xff3a62a0))
+                    ) {
+                        Button(
+                            onClick = {
+                                navController.navigate(HomeRoutes.MenuKantinKopi.name)
+                            },
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier
+                                .align(alignment = Alignment.TopCenter)
+                                .requiredWidth(150.dp)
+                                .requiredHeight(150.dp),
+
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(
+                                    0xFF3A62A0
+                                )
+                            )
+                        ) {
+                            Text(
+                                "Buka Toko",
+                                color = Color.White,
+                                fontSize = 8.sp,
+                                modifier = Modifier.offset(y = (-2).dp)
+                            )
+                        }
+                    }
+                }
+            }
+            for (store in stores) {
                 Row( //Fragment Menu
                     horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.Start),
                     modifier = Modifier
@@ -177,7 +261,7 @@ fun LihatDaftarMenu(modifier: Modifier = Modifier, pilihKantinViewModel: PilihKa
                         ) {
                             Button(
                                 onClick = {
-
+                                    navController.navigate(HomeRoutes.MenuKantin.name)
                                 },
                                 shape = RoundedCornerShape(8.dp),
                                 modifier = Modifier
@@ -200,16 +284,13 @@ fun LihatDaftarMenu(modifier: Modifier = Modifier, pilihKantinViewModel: PilihKa
                             }
                         }
                     }
-
-
                 }
             }
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun LihatDaftarMenuPreview() {
-    LihatDaftarMenu(Modifier)
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun LihatDaftarMenuPreview() {
+//    LihatDaftarMenu(Modifier)
+//}

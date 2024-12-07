@@ -34,6 +34,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.pesenin.R
 
 @Composable
@@ -229,21 +231,21 @@ fun Success(
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun HapusMenuPreview() {
-    HapusMenu(
-        onDismissRequest = { },
-        onConfirmation = { },
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SuccessPreview() {
-    Success(
-        onDismissRequest = { },
-        onConfirmation = { },
-        status = "Menu berhasil dihapus",
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun HapusMenuPreview() {
+//    HapusMenu(
+//        onDismissRequest = { },
+//        onConfirmation = { },
+//    )
+//}
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun SuccessPreview() {
+//    Success(
+//        onDismissRequest = { },
+//        onConfirmation = { },
+//        status = "Menu berhasil dihapus",
+//    )
+//}

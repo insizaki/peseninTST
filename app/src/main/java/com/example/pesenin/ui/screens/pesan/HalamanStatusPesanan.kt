@@ -25,7 +25,7 @@ import com.example.pesenin.ui.theme.TopBar
 import kotlinx.coroutines.delay
 
 @Composable
-fun HalamanStatusPesanan() {
+fun HalamanStatusPesanan(i: Int) {
 
     Box(
         modifier = Modifier

@@ -13,7 +13,6 @@ class ProfileViewModel(
 ) : ViewModel(){
 
     fun GetUserData(callback:(User)-> Unit){
-
         UserRepository.GetUserLogin(AuthRepository.getUserId()){user ->
 
             StorageRepository.getUserProfileImage(user.profil ?:""){url ->
@@ -21,8 +20,9 @@ class ProfileViewModel(
                 println("IIIIIIIIIIIIIII $url")
                 println("XXXXXXXXXXXXX ${user.profil} ")
                 println("BBBBBBBBBBBBBBBBBBB")
-                callback(user)
+                println("##################" + AuthRepository.getUserId())
             }
+            callback(user)
         }
     }
 

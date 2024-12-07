@@ -49,9 +49,11 @@ import com.example.pesenin.ui.theme.PeseninTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(profileViewModel: ProfileViewModel? = null, navController: NavController? = null){
+
     var user: User by remember { mutableStateOf(User()) }
     profileViewModel!!.GetUserData { userData->
         user = userData
+        println("######################### ${user}")
     }
 
     Column(
@@ -132,7 +134,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel? = null, navController: Nav
                         .padding(start = 13.dp, end = 13.5.dp)
                         .align(Alignment.CenterVertically))
 
-                Text(text = user.nim ?:"2151502001238354",
+                Text(text = user.nim ?:"",
                     modifier= Modifier.align(Alignment.CenterVertically),
                     style = TextStyle(
                         fontSize = 14.sp,
@@ -161,7 +163,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel? = null, navController: Nav
                         .padding(start = 13.dp, end = 13.5.dp)
                         .align(Alignment.CenterVertically))
 
-                Text(text = user.email ?:"email@gmail.com",
+                Text(text = user.email ?:"",
                     modifier= Modifier.align(Alignment.CenterVertically),
                     style = TextStyle(
                         fontSize = 14.sp,
@@ -190,7 +192,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel? = null, navController: Nav
                         .padding(start = 13.dp, end = 13.5.dp)
                         .align(Alignment.CenterVertically))
 
-                Text(text = user.phone ?:"08123456789",
+                Text(text = user.phone ?:"",
                     modifier= Modifier.align(Alignment.CenterVertically),
                     style = TextStyle(
                         fontSize = 14.sp,

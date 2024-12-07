@@ -8,20 +8,24 @@ import com.google.firebase.storage.storage
 import java.io.ByteArrayOutputStream
 
 class StorageRepository {
-    fun uploadImageToFirebase(bitmap: Bitmap, context: ComponentActivity, callback: (Boolean)->Unit) {
+    fun uploadImageToFirebase(
+        bitmap: Bitmap,
+        context: ComponentActivity,
+        callback: (Boolean) -> Unit
+    ) {
         val storageRef = Firebase.storage.reference
         val imageRef = storageRef.child("ktm/${bitmap}")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val imageData = baos.toByteArray()
         imageRef.putBytes(imageData).addOnSuccessListener {
             callback(true)
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             callback(false)
         }
     }
 
-    fun getUserProfileImage(fileName:String, url: (String)->Unit){
+    fun getUserProfileImage(fileName: String, url: (String) -> Unit) {
         val storage = FirebaseStorage.getInstance()
         val storageReference = storage.reference
         val imageRef = storageReference.child("ktm/$fileName")
@@ -39,7 +43,7 @@ class StorageRepository {
         println("$url")
     }
 
-    fun getStorePhoto(fileName:String, url: (String)->Unit){
+    fun getStorePhoto(fileName: String, url: (String) -> Unit) {
         val storage = FirebaseStorage.getInstance()
         val storageReference = storage.reference
         val imageRef = storageReference.child("store/$fileName")
@@ -54,7 +58,7 @@ class StorageRepository {
         }
     }
 
-    fun getMenuPhoto(fileName:String, url: (String)->Unit){
+    fun getMenuPhoto(fileName: String, url: (String) -> Unit) {
         val storage = FirebaseStorage.getInstance()
         val storageReference = storage.reference
         val imageRef = storageReference.child("menu/$fileName")
@@ -69,7 +73,7 @@ class StorageRepository {
         }
     }
 
-    fun getQrisPhoto(fileName:String, url: (String)->Unit){
+    fun getQrisPhoto(fileName: String, url: (String) -> Unit) {
         val storage = FirebaseStorage.getInstance()
         val storageReference = storage.reference
         val imageRef = storageReference.child("qris/$fileName")
